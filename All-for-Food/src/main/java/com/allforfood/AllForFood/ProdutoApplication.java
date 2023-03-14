@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.allforfood.AllForFood;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AllForFoodApplication {
+public class ProdutoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AllForFoodApplication.class, args);
+		SpringApplication.run(ProdutoApplication.class, args);
 	}
 
 }
