@@ -29,6 +29,11 @@ public class Cliente {
     @Column(length = 10, nullable = false)
     private Integer numero;
 
+    //Dententor da Chave estrangeira
+    @ManyToOne
+    @JoinColumn(name = "id_pedido", nullable = false)
+    private Pedido pedido;
+
     public String getBairro() {
         return bairro;
     }

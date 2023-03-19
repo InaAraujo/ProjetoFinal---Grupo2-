@@ -18,6 +18,11 @@ public class Produto {
      @Column(length = 15, nullable = false)
      private String valor;
 
+     @ManyToOne
+     @JoinColumn(name = "pedido_id", nullable = false)
+     private Pedido pedido;
+
+
      public long getId() {
           return id;
      }
