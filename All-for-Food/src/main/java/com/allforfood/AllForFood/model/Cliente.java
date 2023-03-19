@@ -1,10 +1,10 @@
-package com.allforfood.AllForFood.cliente;
+package com.allforfood.AllForFood.model;
 
 
 import jakarta.persistence.*;
 
 //Criado a tabela clientes//
-@Table(name = "clientes")
+
 @Entity
 public class Cliente {
 
@@ -13,13 +13,37 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(length = 200, nullable = false)
     private String nome;
 
+    @Column(length = 200, nullable = false)
     private String email;
 
+    @Column(length = 20, nullable = false)
     private String telefone;
 
-    private String endereco;
+    @Column(length = 200, nullable = false)
+    private String logradouro;
+    @Column(length = 200, nullable = false)
+    private String bairro;
+    @Column(length = 10, nullable = false)
+    private Integer numero;
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public Integer getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Integer numero) {
+        this.numero = numero;
+    }
 
     public long getId() {
         return id;
@@ -53,21 +77,22 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public String getEndereco() {
-        return endereco;
+    public String getLogradouro() {
+        return logradouro;
     }
 
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
+    public void setLogradouro(String logradouro) {
+        this.logradouro = logradouro;
     }
 
 
     //Contrutor que dara acesso ao dados do cliente e coloca os valores//
-    public void Cliente (Cliente cliente){
-
+    public void atualizar(Cliente cliente){
         this.nome = cliente.getNome();
         this.email = cliente.getEmail();
         this.telefone = cliente.getTelefone();
-        this.endereco = cliente.getEndereco();
+        this.logradouro = cliente.getLogradouro();
+        this.bairro = cliente.getBairro();
+        this.numero = cliente.getNumero();
     }
 }
