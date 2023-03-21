@@ -1,12 +1,16 @@
 package com.allforfood.AllForFood.controller;
-import com.allforfood.AllForFood.model.Cliente;
+
 import com.allforfood.AllForFood.model.Produto;
 import com.allforfood.AllForFood.repository.ProdutoRepository;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -61,6 +65,25 @@ public class ProdutoController {
         }
 
         repository.delete(produtoOptional.get());
+    }
+
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public List<String> tratar(ConstraintViolationException exception) {
+        List<String> erros = new ArrayList<>();
+
+        for(ConstraintViolation<?> violation : exception.getConstraintViolations()) {
+            String erro = String.format(
+                    "%s %s",
+                    violation.getPropertyPath().toString(),
+                    violation.getMessage()
+            );
+
+            erros.add(erro);
+        }
+
+        return erros;
     }
 
 

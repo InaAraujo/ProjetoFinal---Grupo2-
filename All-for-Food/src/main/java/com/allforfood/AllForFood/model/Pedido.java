@@ -1,8 +1,9 @@
 package com.allforfood.AllForFood.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -11,29 +12,30 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 15, nullable = false)
-    private LocalDate data_pedido;
+    @NotBlank
+    private LocalDateTime data;
 
     public Long getId() {
+
         return id;
     }
 
-    public LocalDate getData_pedido() {
-        return data_pedido;
+    public LocalDateTime getData() {
+        return data;
     }
 
-    public void setData_pedido(LocalDate data_pedido) {
-        this.data_pedido = data_pedido;
+    public void setData(LocalDateTime data) {
+        this.data = data;
     }
 
-    @OneToMany(mappedBy = "pedido")
-    private List<Cliente> cliente;
+    @ManyToOne()
+    private Cliente cliente;
 
-    @OneToMany(mappedBy = "pedido" )
+    @OneToMany()
     private List<Produto> produto;
 
     public  void atualizar(Pedido pedido){
-        this.data_pedido = pedido.getData_pedido();
+        this.data = pedido.getData();
     }
 
 

@@ -2,37 +2,43 @@ package com.allforfood.AllForFood.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
-//Criado a tabela clientes//
 
 @Entity
 public class Cliente {
 
-    //determinando id//
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 200, nullable = false)
+    @NotBlank
+    @Column(length = 200)
     private String nome;
 
-    @Column(length = 200, nullable = false)
+    @NotBlank
+    @Email
+    @Column(length = 200)
     private String email;
 
-    @Column(length = 20, nullable = false)
-    private String telefone;
 
-    @Column(length = 200, nullable = false)
+    @NotBlank
+    @Column(length = 20)
+    private String telefone;
+    @NotBlank
+    @Column(length = 200)
     private String logradouro;
-    @Column(length = 200, nullable = false)
+
+    @NotBlank
+    @Column(length = 200)
     private String bairro;
-    @Column(length = 10, nullable = false)
+
+    @NotBlank
+    @Column(length = 10)
     private Integer numero;
 
-    //Dententor da Chave estrangeira
-    @ManyToOne
-    @JoinColumn(name = "id_pedido", nullable = false)
-    private Pedido pedido;
+
 
     public String getBairro() {
         return bairro;
@@ -90,8 +96,6 @@ public class Cliente {
         this.logradouro = logradouro;
     }
 
-
-    //Contrutor que dara acesso ao dados do cliente e coloca os valores//
     public void atualizar(Cliente cliente){
         this.nome = cliente.getNome();
         this.email = cliente.getEmail();

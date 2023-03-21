@@ -2,17 +2,23 @@ package com.allforfood.AllForFood.controller;
 
 import com.allforfood.AllForFood.model.Cliente;
 import com.allforfood.AllForFood.repository.ClienteRepository;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/cliente")
 public class ClienteController {
-    //instanciando o repositorio//
+
     @Autowired
     private ClienteRepository repository;
 
@@ -32,7 +38,7 @@ public class ClienteController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-    //Criando uma funcao que vai enviar os dados do cliente para o banco//
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void Cadastrar(@RequestBody Cliente cliente) {
@@ -64,5 +70,22 @@ public class ClienteController {
         repository.delete(clienteOptional.get());
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public List<String> tratar(ConstraintViolationException exception) {
+        List<String> erros = new ArrayList<>();
+
+        for(ConstraintViolation<?> violation : exception.getConstraintViolations()) {
+            String erro = String.format(
+                    "%s %s",
+                    violation.getPropertyPath().toString(),
+                    violation.getMessage()
+            );
+
+            erros.add(erro);
+        }
+
+        return erros;
+    }
 
 }
