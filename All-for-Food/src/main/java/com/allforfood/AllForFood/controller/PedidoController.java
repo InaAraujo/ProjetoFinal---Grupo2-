@@ -22,7 +22,6 @@ public class PedidoController {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-
     @GetMapping
     public Iterable<Pedido> list() {
         return pedidoRepository.findAll();
@@ -42,7 +41,7 @@ public class PedidoController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void Cadastrar(@RequestBody Pedido pedido) {
-        LocalDateTime.now();
+        pedido.setData(LocalDateTime.now());
         pedidoRepository.save(pedido);
     }
 
