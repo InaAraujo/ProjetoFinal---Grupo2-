@@ -1,7 +1,6 @@
 package com.allforfood.AllForFood.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,7 +11,7 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+
     private LocalDateTime data;
 
     public Long getId() {
@@ -33,6 +32,23 @@ public class Pedido {
 
     @OneToMany()
     private List<Produto> produto;
+
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public List<Produto> getProduto() {
+        return produto;
+    }
+
+    public void setProduto(List<Produto> produto) {
+        this.produto = produto;
+    }
 
     public  void atualizar(Pedido pedido){
         this.data = pedido.getData();

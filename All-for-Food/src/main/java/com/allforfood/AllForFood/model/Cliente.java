@@ -36,7 +36,7 @@ public class Cliente {
 
     @NotBlank
     @Column(length = 10)
-    private Integer numero;
+    private String numero;
 
 
 
@@ -48,11 +48,11 @@ public class Cliente {
         this.bairro = bairro;
     }
 
-    public Integer getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(Integer numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
 
