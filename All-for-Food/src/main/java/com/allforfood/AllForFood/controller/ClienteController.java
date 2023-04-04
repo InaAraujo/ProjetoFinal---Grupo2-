@@ -22,11 +22,12 @@ public class ClienteController {
     @Autowired
     private ClienteRepository repository;
 
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping
     public Iterable<Cliente> list() {
         return repository.findAll();
     }
-
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping("/{id}")
     public Cliente mostrarPorId(@PathVariable long id) {
         Optional<Cliente> clienteOptional = repository.findById(id);
@@ -38,13 +39,13 @@ public class ClienteController {
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
 
-
+    @CrossOrigin(origins = "http://localhost:8100")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void Cadastrar(@RequestBody Cliente cliente) {
         repository.save(cliente);
     }
-
+    @CrossOrigin(origins = "http://localhost:8100")
     @PutMapping("/{id}")
     private void alterarCliente(@PathVariable long id, @RequestBody Cliente cliente) {
         Optional<Cliente> clienteOptional = repository.findById(id);
@@ -58,7 +59,7 @@ public class ClienteController {
 
         repository.save(clienteEncontrado);
     }
-
+    @CrossOrigin(origins = "http://localhost:8100")
     @DeleteMapping("/{id}")
     private void deletarCliente(@PathVariable long id) {
         Optional<Cliente> clienteOptional = repository.findById(id);

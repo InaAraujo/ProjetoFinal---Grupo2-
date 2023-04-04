@@ -15,13 +15,11 @@ public class Produto {
     @Column(length = 200)
     private String descricao;
     @NotBlank
-    @Column(length = 20)
     private String codigo;
     @NotBlank
     @Column(length = 10)
     private String bordaRecheada;
     @NotBlank
-    @Column(length = 15)
     private String valor;
 
 

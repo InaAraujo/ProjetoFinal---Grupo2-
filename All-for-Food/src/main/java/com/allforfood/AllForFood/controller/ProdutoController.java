@@ -12,18 +12,23 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
+
 
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
+    public Random random = new Random();
     @Autowired
     private ProdutoRepository repository;
 
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping
     public Iterable<Produto> list() {
         return repository.findAll();
 
     }
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping("/{id}")
     public Produto mostrarPorId(@PathVariable long id) {
         Optional<Produto> produtoOptional = repository.findById(id);
@@ -34,14 +39,15 @@ public class ProdutoController {
 
         throw new ResponseStatusException(HttpStatus.NOT_FOUND);
     }
-
+    @CrossOrigin(origins = "http://localhost:8100")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void Cadastrar(@RequestBody Produto produto){
+        produto.setCodigo(String.valueOf(random.nextInt(1000,9999)));
+        produto.setValor(String.valueOf(random.nextInt(30,50)));
         repository.save(produto);
-
     }
-
+    @CrossOrigin(origins = "http://localhost:8100")
     @PutMapping("/{id}")
     private void alterarProduto(@PathVariable long id, @RequestBody Produto produto) {
         Optional<Produto> produtoOptional = repository.findById(id);
@@ -55,7 +61,7 @@ public class ProdutoController {
 
         repository.save(produtoEncontrado);
     }
-
+    @CrossOrigin(origins = "http://localhost:8100")
     @DeleteMapping("/{id}")
     private void deletarProduto(@PathVariable long id) {
         Optional<Produto> produtoOptional = repository.findById(id);
